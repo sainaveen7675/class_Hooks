@@ -1,65 +1,33 @@
-import React from "react";
-// Using Class Component
-class User extends React.Component {
-  constructor(props) {
-    super(props);
+import React, { useState, useEffect } from "react";
+// import React from "react";
 
-    this.state = {
-        planet: "earth",
-    };
-    console.log("Iam the constructor");
-  };
-
-  componentDidMount() {
-    this.setState({ planet: "jupiter" });
-  }
-
-  shouldComponentUpdate(nextProp, nextState) {
-    console.log("iam the shouldComponentUpdate");
-    console.log( {
-      nextProp,
-      nextState,
-    });
+const User = (props) => {
+  const [planet, setPlanet] = useState("earth");
+  // const planet = React.useState("earth"); -> if we use "useState" in import , no need to use react here.. 
+  
+  // componentDidMount
+  useEffect(() => {
+    console.log("component mounting");
     
-    return true;
-  }
+    // componentWillUnmount
+    console.log("bye bye");
+  },[]);
 
-  getSnapshotBeforeUpdate(prevProps, prevState) {  
-    console.log("iam the getSnapshotBeforeUpdate");
-    console.log( { prevProps, prevState } );
-    return true;
-  }
+  // componentDidUpdate
+  // shouldComponentUpdate
+  useEffect(() => {
+    console.log("planet changed");
+  }, []);
 
-  componentDidUpdate(){
-    console.log(this.state);
-  }
-
-  // componentDidMount() {
-  //   this.setState( { planet: "mars" } );
-  //   console.log("Iam the componentDidMount");
-  // };
-
-  render() {
-    console.log("Iam the render()");
-    return (
-      <div>
-        <h1> {this.props.name} </h1>
-        <p> {this.props.description} </p>
-        <h3> {this.state.planet} </h3>
-      </div>
-    );
-  };
+  return (
+    <div>
+      <h1> {props.name} </h1>
+      <p> {props.description} </p>
+      <button onClick = {() => setPlanet("pluto")}>
+        {planet}
+      </button>
+    </div>
+  );
 };
 
 export default User;
-
-// const User = (props) => {
-//     return (
-//         <div>
-//             <h1>{props.name}</h1>
-//             <p>{props.description}</p>
-//         </div>
-//     );
-// };
-
-// export default User;
